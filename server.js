@@ -176,7 +176,7 @@ app.get('/', (req, res, next) => {
         'X-Frame-Options': 'DENY',
         'Content-Security-Policy': "default-src 'self'"
       }
-    };
+    });
   } catch (error) {
     next(new Error('Error al cargar la página principal'));
   }
