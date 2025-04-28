@@ -90,7 +90,7 @@ app.use(express.static(path.join(__dirname, 'public'), {
     }
     res.setHeader('X-Content-Type-Options', 'nosniff');
   }
-});
+}));
 
 // Configuración mejorada de MySQL
 const pool = mysql.createPool({
