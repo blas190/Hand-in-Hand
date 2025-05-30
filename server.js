@@ -62,27 +62,30 @@ testDbConnection();
 
 // ===== CONFIGURACIÓN DE NODEMAILER PARA ENVÍO DE CORREOS =====
 // Crear transporter para envío de correos
-let transporter;
+let transporter; // Declara 'transporter' en un ámbito accesible
 
 function initializeMailer() {
-  // Configuración para Gmail
-  transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER || 'valeriacabrera965@gmail.com', // Reemplaza con tu correo
-      pass: process.env.EMAIL_PASS || 'dnkv jlhk etxs nvcz'  // Reemplaza con tu contraseña de aplicación
-    }
-  });
-  
-  // Verificar conexión al servicio de correo
-  transporter.verify((error, success) => {
-    if (error) {
-      console.error('❌ Error al configurar el servicio de correo:', error);
-    } else {
-      console.log('✅ Servidor listo para enviar correos');
-    }
-  });
+    // Configuración para Gmail
+    transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: process.env.EMAIL_USER, // Usa la variable de entorno
+            pass: process.env.EMAIL_PASS  // Usa la variable de entorno
+        }
+    });
+
+    // ===> ESTE BLOQUE DEBE ESTAR DENTRO DE LA FUNCIÓN initializeMailer() <===
+    // Verificar conexión al servicio de correo
+    transporter.verify((error, success) => {
+        if (error) {
+            console.error('❌ Error al configurar el servicio de correo:', error);
+        } else {
+            console.log('✅ Servidor listo para enviar correos');
+        }
+    });
+    // ===> CIERRE DE LA FUNCIÓN initializeMailer() <===
 }
+
 
 // Inicializar el servicio de correo
 initializeMailer();
