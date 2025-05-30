@@ -70,7 +70,7 @@ function initializeMailer() {
         service: 'gmail',
         auth: {
             user: process.env.EMAIL_USER, // Usa la variable de entorno
-            pass: process.env.EMAIL_PASS  // Usa la variable de entorno
+            pass: process.env.EMAIL_PASSWORD  // Usa la variable de entorno
         }
     });
 
