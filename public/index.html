@@ -5,18 +5,956 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Hand In Hand</title>
-   
+    <script src="chatbot.js"></script>
+    <script src="chatbot-ui.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+
+    <style>
+        /* Estilos generales para el cuerpo */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Estilos para el encabezado */
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #d4edda;
+        }
+
+        /* Estilos para el botón de login/perfil de usuario */
+        .auth-container {
+            position: relative; /* Para el dropdown del perfil */
+        }
+
+        .login-button {
+            background-color: #f0f0f0;
+            color: #4CAF50;
+            padding: 8px 20px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .add-button {
+            background-color: #FFC107;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-left: 15px; /* Para separarlo del botón de login/perfil */
+        }
+
+        .add-button:hover {
+            background-color: #e0b000;
+        }
+
+        /* Estilos para la sección principal (hero) */
+        .hero-section {
+            background: url('https://images.unsplash.com/photo-1542823618-971c22146f61') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-section h1 {
+            font-size: 3.5em;
+            margin-bottom: 10px;
+        }
+
+        .hero-section p {
+            font-size: 1.5em;
+            margin-top: 0;
+        }
+
+        /* Estilos para las secciones */
+        section {
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        section h2 {
+            font-size: 2.5em;
+            color: #4CAF50;
+            margin-bottom: 30px;
+        }
+
+        /* Estilos para las tarjetas de productor */
+        .featured-section {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            background-color: #f9f9f9;
+        }
+
+        .producer-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 300px;
+            text-align: left;
+            transition: transform 0.3s ease;
+        }
+
+        .producer-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .producer-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .producer-card h2 {
+            font-size: 1.5em;
+            color: #333;
+            margin: 15px 15px 10px;
+        }
+
+        .producer-card p {
+            font-size: 1em;
+            color: #666;
+            margin: 0 15px 15px;
+        }
+
+        .reserve-btn {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0 15px 15px;
+            transition: background-color 0.3s ease;
+        }
+
+        .reserve-btn:hover {
+            background-color: #45a049;
+        }
+
+        /* Estilos para productos de temporada */
+        .season-section {
+            background-color: #e6ffe6;
+        }
+
+        .exchange-products {
+            margin-bottom: 20px;
+        }
+
+        .product-tag {
+            display: inline-block;
+            background-color: #d4edda;
+            color: #218838;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        /* Estilos para FAQ */
+        .faq-section {
+            background-color: #fff;
+        }
+
+        .faq-item {
+            text-align: left;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+        }
+
+        .faq-item h3 {
+            color: #4CAF50;
+            margin-top: 0;
+            cursor: pointer;
+        }
+
+        .faq-item p {
+            color: #555;
+            display: none; /* Ocultar por defecto */
+        }
+
+        .faq-item.active p {
+            display: block; /* Mostrar cuando esté activo */
+        }
+
+        /* Estilos para la tabla de información */
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+            background-color: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .info-table th, .info-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        .info-table th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+        }
+
+        .info-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .info-table tr:hover {
+            background-color: #e9e9e9;
+        }
+
+        /* Estilos para la sección de artículo */
+        .article-section {
+            background-color: #f9f9f9;
+            text-align: left;
+        }
+
+        .article-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .article-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-content div {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .article-content ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            color: #555;
+        }
+
+        .article-content li {
+            margin-bottom: 8px;
+        }
+
+        /* Estilos para el footer */
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+        }
+
+        /* Estilos para dispositivos móviles */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav-links a {
+                margin: 5px 10px;
+            }
+
+            .hero-section {
+                padding: 80px 10px;
+            }
+
+            .hero-section h1 {
+                font-size: 2.5em;
+            }
+
+            .hero-section p {
+                font-size: 1.2em;
+            }
+
+            section {
+                padding: 30px 15px;
+            }
+
+            section h2 {
+                font-size: 2em;
+            }
+
+            .producer-card {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .article-content {
+                flex-direction: column;
+            }
+
+            .article-image {
+                max-width: 100%;
+            }
+        }
+        
+        /* Estilos para el spinner de carga */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Estilos para el simulador de CAPTCHA */
+        .captcha-container {
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .captcha-box {
+            background-color: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            position: relative;
+            width: 200px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .captcha-text {
+            font-family: 'Courier New', monospace;
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: #333;
+            user-select: none;
+            position: relative;
+            z-index: 2;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .captcha-line {
+            position: absolute;
+            height: 2px;
+            background-color: #666;
+            width: 100%;
+            z-index: 1;
+        }
+        
+        .captcha-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #999;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .captcha-input {
+            width: 200px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            text-align: center;
+            letter-spacing: 3px;
+        }
+        
+        .refresh-captcha {
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .refresh-captcha svg {
+            margin-right: 5px;
+        }
+        
+        .refresh-captcha:hover {
+            background-color: #e0e0e0;
+        }
+        
+        /* Estilos para el mensaje de error del CAPTCHA */
+        #captcha-error {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: center;
+        }
+        
+        /* Estilos para mensajes de error */
+        .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+        
+        /* Estilos para el formulario de verificación */
+        .verification-form {
+            display: none;
+        }
+        
+        /* Estilos para el chatbot */
+        .chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            font-family: Arial, sans-serif;
+        }
+        
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .chatbot-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        
+        .chatbot-panel {
+            position: absolute;
+            bottom: 70px;
+            right: 0;
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        
+        .chatbot-header {
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .chatbot-title {
+            display: flex;
+            align-items: center;
+        }
+        
+        .chatbot-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            background-color: white;
+        }
+        
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .chatbot-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chatbot-message {
+            margin-bottom: 15px;
+            max-width: 80%;
+            display: flex;
+        }
+        
+        .bot-message {
+            align-self: flex-start;
+        }
+        
+        .user-message {
+            align-self: flex-end;
+        }
+        
+        .message-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
+            overflow: hidden;
+        }
+        
+        .message-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .message-content {
+            padding: 10px 15px;
+            border-radius: 18px;
+            background-color: #f1f1f1;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .bot-message .message-content {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+        
+        .user-message .message-content {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .chatbot-input {
+            padding: 15px;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+        }
+        
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 20px;
+            outline: none;
+        }
+        
+        .chatbot-send {
+            background: none;
+            border: none;
+            color: #4CAF50;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        
+        /* Estilos para dispositivos móviles */
+        @media (max-width: 480px) {
+            .chatbot-panel {
+                width: 100%;
+                height: 100%;
+                bottom: 0;
+                right: 0;
+                border-radius: 0;
+            }
+        }
+
+        /* Estilos para el carrusel de productos */
+        .product-carousel-section {
+            background-color: #f9f9f9;
+        }
+
+        .product-carousel {
+            margin: 20px 0;
+            /* Asegúrate de que los estilos de slick-carousel no sean sobrescritos negativamente */
+        }
+
+        .product-slide {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: left;
+            margin: 10px; /* Margen para que se vea bien en el carrusel */
+            padding-bottom: 15px; /* Espacio para el botón */
+            height: 380px; /* Altura fija para todas las tarjetas */
+            display: flex !important; /* Para que slick maneje bien el flex */
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-slide img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-slide h3 {
+            font-size: 1.3em;
+            color: #333;
+            margin: 15px 15px 5px;
+        }
+
+        .product-slide p {
+            font-size: 0.9em;
+            color: #666;
+            margin: 0 15px 10px;
+            flex-grow: 1; /* Permite que el párrafo ocupe el espacio restante */
+        }
+
+        .product-slide .price {
+            font-weight: bold;
+            color: #4CAF50;
+            margin: 0 15px 10px;
+            font-size: 1.1em;
+        }
+
+        .product-slide .add-to-cart-btn {
+            background-color: #FFC107;
+            color: #333;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 0 15px 0; /* Ajusta margen */
+            transition: background-color 0.3s ease;
+        }
+
+        .product-slide .add-to-cart-btn:hover {
+            background-color: #e0b000;
+        }
+
+        /* Estilos del modal y modal overlay */
+        .modal-overlay {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1000; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1001; /* Sit on top */
+            left: 50%; /* Centra horizontalmente */
+            top: 50%; /* Centra verticalmente */
+            transform: translate(-50%, -50%); /* Ajuste para centrado perfecto */
+            width: 80%; /* Could be more or less, depending on screen size */
+            max-width: 500px;
+            background-color: #fefefe;
+            padding: 20px;
+            border: 1px solid #888;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            animation: fadeInModal 0.3s ease-out; /* Animación de aparición */
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: translate(-50%, -60%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #4CAF50;
+        }
+
+        .close-btn {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #333;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal form input[type="text"],
+        .modal form input[type="email"],
+        .modal form input[type="password"],
+        .modal form input[type="number"],
+        .modal form input[type="url"],
+        .modal form textarea {
+            width: calc(100% - 20px); /* Ajusta el padding */
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .modal form button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal form button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        .modal .error-message {
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+        /* Estilos para el panel de administración */
+        .admin-panel {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .admin-panel h2 {
+            color: #4CAF50;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .admin-panel .info-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .admin-panel .info-table th,
+        .admin-panel .info-table td {
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            text-align: left;
+            font-size: 0.95em;
+        }
+
+        .admin-panel .info-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .admin-panel .info-table tbody tr:nth-child(odd) {
+            background-color: #fafafa;
+        }
+
+        .admin-panel .info-table tbody tr:hover {
+            background-color: #e6ffe6;
+        }
+
+        .admin-panel .action-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85em;
+            margin-right: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .admin-panel .action-button:hover {
+            background-color: #0056b3;
+        }
+
+        .admin-panel .action-button:last-child {
+            margin-right: 0;
+        }
+
+        .admin-panel .action-button:nth-of-type(2) { /* Estilo específico para el botón de suspender */
+            background-color: #dc3545;
+        }
+
+        .admin-panel .action-button:nth-of-type(2):hover {
+            background-color: #c82333;
+        }
+
+        /* Estilos para el perfil de usuario logueado */
+        .user-profile {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            padding: 5px 10px; /* Ajusta el padding para que se vea bien */
+            border-radius: 20px;
+            background-color: #f0f0f0; /* Fondo claro para el avatar/nombre */
+            color: #4CAF50; /* Color principal para el texto del nombre */
+            height: 36px; /* Asegura una altura consistente con el botón de login */
+            box-sizing: border-box; /* Para que el padding no añada tamaño */
+            font-weight: bold;
+            text-decoration: none; /* Asegura que no tenga subrayado */
+        }
+
+        .user-profile:hover {
+            background-color: #e0e0e0;
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 10px;
+            border: 2px solid #4CAF50;
+        }
+
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%; /* Posicionar debajo del perfil */
+            right: 0;
+            background-color: white;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            border-radius: 8px;
+            min-width: 160px;
+            z-index: 10;
+            margin-top: 10px; /* Espacio entre el perfil y el dropdown */
+            overflow: hidden;
+        }
+
+        .profile-dropdown.show {
+            display: block;
+        }
+
+        .profile-dropdown a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            font-weight: normal; /* Sobrescribir estilos de nav-links */
+        }
+
+        .profile-dropdown a:hover {
+            background-color: #f1f1f1;
+            color: #4CAF50;
+        }
+
+        .profile-dropdown .logout {
+            color: #dc3545; /* Color para el botón de cerrar sesión */
+        }
+
+        .profile-dropdown .logout:hover {
+            background-color: #ffe6e6;
+            color: #c82333;
+        }
+    </style>
 </head>
 <body>
     <header>
-        <di class="header-content">
-        <nav class="nav-links">
-            <a href="#nosotros">Nosotros</a>
-            <a href="#productores">Productores</a>
-            <a href="#contacto">Contacto</a>
-            <a href="#" class="login-button" id="open-login">Iniciar Sesión</a>
-        </nav>
-        <button class="add-button">Agregar ►</button>
+        <div class="header-content">
+            <nav class="nav-links">
+                <a href="#nosotros">Nosotros</a>
+                <a href="#productores">Productores</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+            <div class="auth-container">
+                <a href="#" class="login-button" id="open-login">Iniciar Sesión</a>
+            </div>
+            <button class="add-button" id="open-add-product">Agregar ►</button>
         </div>
     </header>
     
@@ -27,53 +965,89 @@
 
     <div class="modal-overlay" id="modal-overlay"></div>
     
-    <!-- Modal de Login -->
     <div class="modal" id="login-modal">
-        <div class="modal-header">
-            <h2>Iniciar Sesión</h2>
-            <span class="close-btn" id="close-login">&times;</span>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Iniciar Sesión</h2>
+                <span class="close-btn" id="close-login">&times;</span>
+            </div>
+            <form id="login-form">
+                <input type="email" id="email" placeholder="Correo Electrónico" required>
+                <input type="password" id="password" placeholder="Contraseña" required>
+                <button type="submit">Ingresar</button>
+                <p>¿No tienes cuenta? <a href="#" id="switch-to-signup">Registrarse</a></p>
+                <p id="verification-message" class="error-message"></p>
+            </form>
         </div>
-        <form id="login-form">
-            <input type="email" id="email" placeholder="Correo Electrónico" required>
-            <input type="password" id="password" placeholder="Contraseña" required>
-            <button type="submit">Ingresar</button>
-            <p>¿No tienes cuenta? <a href="#" id="switch-to-signup">Registrarse</a></p>
-            <p id="verification-message" class="error-message"></p>
-        </form>
     </div>
 
-    <!-- Modal de Registro -->
     <div class="modal" id="signup-modal">
-        <div class="modal-header">
-            <h2>Registrarse</h2>
-            <span class="close-btn" id="close-signup">&times;</span>
-        </div>
-        
-        <form id="signup-form">
-            <input type="text" id="nombre" placeholder="Nombre Completo" required>
-            <div id="nombre-error" class="error-message"></div>
-            
-            <input type="email" id="email-signup" placeholder="Correo Electrónico" required>
-            <div id="email-error" class="error-message"></div>
-            
-            <input type="password" id="password-signup" placeholder="Contraseña (mínimo 6 caracteres)" required>
-            <div id="password-error" class="error-message"></div>
-            
-            <button type="submit">Registrarse</button>
-            <p>¿Ya tienes cuenta? <a href="#" id="switch-to-login">Iniciar Sesión</a></p>
-            <p id="signup-message" class="error-message"></p>
-        </form>
-
-        <form id="verification-form" class="verification-form">
-            <p>Hemos enviado un código de verificación a tu correo electrónico.</p>
-            <input type="text" id="verification-code" placeholder="Ingresa el código de 6 dígitos" maxlength="6" required>
-            <div id="code-error" class="error-message"></div>
-            <button type="submit">Verificar Cuenta</button>
-            <div class="resend-code">
-                ¿No recibiste el código? <a id="resend-code">Reenviar código</a>
-                <span id="countdown"></span>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Registrarse</h2>
+                <span class="close-btn" id="close-signup">&times;</span>
             </div>
-        </form>
+            
+            <form id="signup-form">
+                <input type="text" id="nombre" placeholder="Nombre Completo" required>
+                <div id="nombre-error" class="error-message"></div>
+                
+                <input type="email" id="email-signup" placeholder="Correo Electrónico" required>
+                <div id="email-error" class="error-message"></div>
+                
+                <input type="password" id="password-signup" placeholder="Contraseña (mínimo 6 caracteres)" required>
+                <div id="password-error" class="error-message"></div>
+                
+                <div class="captcha-container">
+                    <div class="captcha-box" id="captcha-box">
+                        <div class="captcha-text" id="captcha-text"></div>
+                        </div>
+                    <input type="text" id="captcha-input" class="captcha-input" placeholder="Ingresa el código" maxlength="6" required>
+                    <button type="button" class="refresh-captcha" id="refresh-captcha">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M23 4v6h-6"></path>
+                            <path d="M1 20v-6h6"></path>
+                            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"></path>
+                            <path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"></path>
+                        </svg>
+                        Refrescar
+                    </button>
+                </div>
+                <div id="captcha-error" class="error-message"></div>
+                
+                <button type="submit">Registrarse</button>
+                <p>¿Ya tienes cuenta? <a href="#" id="switch-to-login">Iniciar Sesión</a></p>
+                <p id="signup-message" class="error-message"></p>
+            </form>
+
+            <form id="verification-form" class="verification-form">
+                <p>Hemos enviado un código de verificación a tu correo electrónico.</p>
+                <input type="text" id="verification-code" placeholder="Ingresa el código de 6 dígitos" maxlength="6" required>
+                <div id="code-error" class="error-message"></div>
+                <button type="submit">Verificar Cuenta</button>
+                <div class="resend-code">
+                    ¿No recibiste el código? <a id="resend-code">Reenviar código</a>
+                    <span id="countdown"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="add-product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Agregar Nuevo Producto</h2>
+                <span class="close-btn" id="close-add-product">&times;</span>
+            </div>
+            <form id="add-product-form">
+                <input type="text" id="product-name" placeholder="Nombre del Producto" required>
+                <textarea id="product-description" placeholder="Descripción del Producto" rows="4" required></textarea>
+                <input type="number" id="product-price" placeholder="Precio (ej: 10.50)" step="0.01" required>
+                <input type="url" id="product-image" placeholder="URL de la Imagen" required>
+                <div id="add-product-message" class="error-message"></div>
+                <button type="submit">Guardar Producto</button>
+            </form>
+        </div>
     </div>
 
     <section class="featured-section">
@@ -97,6 +1071,12 @@
             <p>Miel pura y derivados de apicultura responsable</p>
             <button class="reserve-btn">Ver productos</button>
         </div>
+    </section>
+
+    <section class="product-carousel-section">
+        <h2>Nuestros Productos</h2>
+        <div class="product-carousel">
+            </div>
     </section>
 
     <section class="season-section">
@@ -170,31 +1150,151 @@
         </div>
     </section>
 
+    <section class="admin-panel" id="admin-panel" style="display: none;">
+        <h2>Panel Administrativo de Productores</h2>
+        <table class="info-table">
+            <thead>
+                <tr>
+                    <th>Nombre del Productor</th>
+                    <th>Email</th>
+                    <th>Región</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody id="producer-list">
+                </tbody>
+        </table>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Hand In Hand. Todos los derechos reservados.</p>
+    </footer>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
     <script>
+        // Simulador de CAPTCHA
+        const captchaSimulator = {
+            currentCaptcha: '',
+            
+            init: function() {
+                this.generateCaptcha();
+                document.getElementById('refresh-captcha').addEventListener('click', () => this.generateCaptcha());
+            },
+            
+            generateCaptcha: function() {
+                // Generar un código aleatorio de 6 caracteres (letras y números)
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+                let captcha = '';
+                for (let i = 0; i < 6; i++) {
+                    captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+                }
+                this.currentCaptcha = captcha;
+                
+                // Mostrar el CAPTCHA
+                const captchaText = document.getElementById('captcha-text');
+                captchaText.textContent = captcha;
+                
+                // Limpiar el contenedor
+                const captchaBox = document.getElementById('captcha-box');
+                const oldLines = captchaBox.querySelectorAll('.captcha-line');
+                const oldDots = captchaBox.querySelectorAll('.captcha-dot');
+                
+                oldLines.forEach(line => line.remove());
+                oldDots.forEach(dot => dot.remove());
+                
+                // Añadir líneas aleatorias
+                for (let i = 0; i < 3; i++) {
+                    const line = document.createElement('div');
+                    line.className = 'captcha-line';
+                    line.style.top = `${Math.random() * 100}%`;
+                    line.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+                    line.style.opacity = `${Math.random() * 0.5 + 0.25}`;
+                    captchaBox.appendChild(line);
+                }
+                
+                // Añadir puntos aleatorios
+                for (let i = 0; i < 30; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'captcha-dot';
+                    dot.style.top = `${Math.random() * 100}%`;
+                    dot.style.left = `${Math.random() * 100}%`;
+                    dot.style.opacity = `${Math.random() * 0.5 + 0.25}`;
+                    captchaBox.appendChild(dot);
+                }
+                
+                // Limpiar el input
+                document.getElementById('captcha-input').value = '';
+                document.getElementById('captcha-error').textContent = '';
+            },
+            
+            validate: function() {
+                const input = document.getElementById('captcha-input').value.toUpperCase();
+                if (!input) {
+                    document.getElementById('captcha-error').textContent = 'Por favor, completa el CAPTCHA';
+                    return false;
+                }
+                
+                if (input === this.currentCaptcha) {
+                    return true;
+                } else {
+                    document.getElementById('captcha-error').textContent = 'Código CAPTCHA incorrecto';
+                    this.generateCaptcha();
+                    return false;
+                }
+            }
+        };
+        
         // Manejo de modales
         const modals = {
             init: function() {
                 document.getElementById("open-login").addEventListener("click", (e) => {
+                    // Solo abre el modal de login si no hay sesión activa
                     if (!emailVerification.isLoggedIn) {
                         this.showModal(e, 'login');
                     }
                 });
                 document.getElementById("switch-to-signup").addEventListener("click", (e) => this.switchModal(e, 'signup'));
                 document.getElementById("switch-to-login").addEventListener("click", (e) => this.switchModal(e, 'login'));
+                
+                // Nuevos listeners para el modal de agregar producto
+                document.getElementById("open-add-product").addEventListener("click", (e) => {
+                    if (emailVerification.isLoggedIn) { // Solo si el usuario está logueado
+                        this.showModal(e, 'add-product');
+                    } else {
+                        alert('Debes iniciar sesión para agregar productos.'); // O mostrar el modal de login
+                        this.showModal(e, 'login');
+                    }
+                });
+                document.getElementById("close-add-product").addEventListener("click", () => this.closeModals());
+
+
                 document.querySelectorAll('.close-btn').forEach(btn => btn.addEventListener("click", () => this.closeModals()));
                 document.getElementById("modal-overlay").addEventListener("click", () => this.closeModals());
             },
             
             showModal: function(e, modalType) {
                 e.preventDefault();
-                document.getElementById(`${modalType}-modal`).style.display = 'block';
                 document.getElementById("modal-overlay").style.display = 'block';
+                document.getElementById(`${modalType}-modal`).style.display = 'block'; // Usar 'block' para que funcione el centrado con transform
+                
+                // Generar nuevo CAPTCHA si se muestra el modal de registro
+                if (modalType === 'signup') {
+                    captchaSimulator.generateCaptcha();
+                }
             },
             
             switchModal: function(e, modalType) {
                 e.preventDefault();
                 document.querySelectorAll('.modal').forEach(modal => modal.style.display = 'none');
-                document.getElementById(`${modalType}-modal`).style.display = 'block';
+                document.getElementById(`${modalType}-modal`).style.display = 'block'; // Usar 'block'
+                
+                // Generar nuevo CAPTCHA si se cambia al modal de registro
+                if (modalType === 'signup') {
+                    captchaSimulator.generateCaptcha();
+                }
             },
             
             closeModals: function() {
@@ -211,6 +1311,13 @@
                 
                 // Limpiar mensajes de error
                 document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+
+                // Resetear el formulario de agregar producto también
+                const addProductForm = document.getElementById("add-product-form");
+                if (addProductForm) {
+                    addProductForm.reset();
+                    document.getElementById("add-product-message").textContent = '';
+                }
             }
         };
 
@@ -220,17 +1327,46 @@
             expiration: null,
             userEmail: null,
             userNombre: null,
+            userId: null, // Guardar el ID del usuario
             isLoggedIn: false,
             
             init: function() {
                 document.getElementById("signup-form").addEventListener("submit", (e) => this.handleSignup(e));
                 document.getElementById("verification-form").addEventListener("submit", (e) => this.verifyCode(e));
                 document.getElementById("resend-code").addEventListener("click", (e) => this.resendCode(e));
+                // Verificar si hay sesión al cargar la página
+                this.checkSession();
+            },
+
+            checkSession: async function() {
+                try {
+                    const response = await fetch('http://localhost:3000/session');
+                    const data = await response.json();
+                    if (data.success) {
+                        this.isLoggedIn = true;
+                        this.userEmail = data.user.email;
+                        this.userNombre = data.user.nombre;
+                        this.userId = data.user.id; // Guarda el ID del usuario
+                        this.showUserProfile();
+                        // Mostrar el panel de administración si es admin
+                        if (this.userEmail === "admin@handinhand.com") {
+                            document.getElementById("admin-panel").style.display = "block";
+                            loadProducers();
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error al verificar sesión:", error);
+                }
             },
             
             handleSignup: async function(e) {
                 e.preventDefault();
                 if (!this.validateSignup()) return;
+                
+                // Validar el CAPTCHA
+                if (!captchaSimulator.validate()) {
+                    return;
+                }
 
                 const email = document.getElementById("email-signup").value;
                 const nombre = document.getElementById("nombre").value;
@@ -247,15 +1383,22 @@
                     const response = await fetch('http://localhost:3000/enviar-codigo', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email, nombre, password })
+                        body: JSON.stringify({ 
+                            email, 
+                            nombre, 
+                            password,
+                            captchaToken: 'simulado' // Enviar un token simulado
+                        })
                     });
 
                     const data = await response.json();
 
                     if (data.success) {
-                        this.code = data.codigo;
-                        this.expiration = Date.now() + 900000; // 15 minutos
-
+                        this.showMessage(
+                            document.getElementById("signup-message"),
+                            "Código enviado correctamente a tu correo",
+                            "green"
+                        );
                         document.getElementById("signup-form").style.display = 'none';
                         document.getElementById("verification-form").style.display = 'block';
                         this.startCountdown();
@@ -265,6 +1408,8 @@
                             data.error || "Error al enviar el código",
                             "red"
                         );
+                        // Generar nuevo CAPTCHA si hay error
+                        captchaSimulator.generateCaptcha();
                     }
                 } catch (error) {
                     console.error("Error:", error);
@@ -273,6 +1418,8 @@
                         "Error de conexión con el servidor",
                         "red"
                     );
+                    // Generar nuevo CAPTCHA si hay error
+                    captchaSimulator.generateCaptcha();
                 } finally {
                     submitButton.innerHTML = originalText;
                     submitButton.disabled = false;
@@ -300,12 +1447,20 @@
 
                     if (data.success) {
                         this.isLoggedIn = true;
+                        this.userEmail = data.user.email;
+                        this.userNombre = data.user.nombre;
+                        this.userId = data.user.id; // Guarda el ID del usuario al registrarse
                         this.showUserProfile();
                         this.showMessage(
                             document.getElementById("signup-message"),
                             "¡Registro exitoso!",
                             "green"
                         );
+                        // Verificar si es admin
+                        if (this.userEmail === "admin@handinhand.com") {
+                            document.getElementById("admin-panel").style.display = "block";
+                            loadProducers();
+                        }
                         setTimeout(() => modals.closeModals(), 1500);
                     } else {
                         this.showMessage(
@@ -328,9 +1483,9 @@
             },
 
             showUserProfile: function() {
-                const loginButton = document.getElementById("open-login");
-                loginButton.innerHTML = `
-                    <div class="user-profile" id="user-profile">
+                const authContainer = document.querySelector('.auth-container');
+                authContainer.innerHTML = `
+                    <a href="#" class="user-profile" id="user-profile-link">
                         <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Perfil" class="user-avatar">
                         <span>${this.userNombre}</span>
                         <div class="profile-dropdown" id="profile-dropdown">
@@ -338,43 +1493,64 @@
                             <a href="#">Configuración</a>
                             <a href="#" class="logout" id="logout-btn">Cerrar sesión</a>
                         </div>
-                    </div>
+                    </a>
                 `;
-                loginButton.classList.remove('login-button');
-                loginButton.style.padding = '0';
                 
                 // Agregar eventos para el menú desplegable
-                const profile = document.getElementById("user-profile");
+                const profileLink = document.getElementById("user-profile-link");
                 const dropdown = document.getElementById("profile-dropdown");
                 
-                profile.addEventListener('click', (e) => {
-                    e.preventDefault();
+                profileLink.addEventListener('click', (e) => {
+                    e.preventDefault(); // Evita la navegación del <a>
                     dropdown.classList.toggle('show');
                 });
                 
-                document.getElementById("logout-btn").addEventListener('click', (e) => {
+                document.getElementById("logout-btn").addEventListener('click', async (e) => {
                     e.preventDefault();
-                    this.logout();
+                    await this.logout();
                 });
                 
                 // Cerrar el menú al hacer clic fuera
                 document.addEventListener('click', (e) => {
-                    if (!profile.contains(e.target)) {
+                    if (profileLink && !profileLink.contains(e.target)) {
                         dropdown.classList.remove('show');
                     }
                 });
             },
             
-            logout: function() {
-                this.isLoggedIn = false;
-                const loginButton = document.getElementById("open-login");
-                loginButton.innerHTML = 'Iniciar Sesión';
-                loginButton.classList.add('login-button');
-                loginButton.style.padding = '8px 20px';
-                
-                // Cerrar el menú desplegable si está abierto
-                const dropdown = document.getElementById("profile-dropdown");
-                if (dropdown) dropdown.classList.remove('show');
+            logout: async function() {
+                try {
+                    const response = await fetch('http://localhost:3000/logout', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include'
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        this.isLoggedIn = false;
+                        this.userEmail = null;
+                        this.userNombre = null;
+                        this.userId = null; // Limpia el ID del usuario al cerrar sesión
+                        const authContainer = document.querySelector('.auth-container');
+                        authContainer.innerHTML = `<a href="#" class="login-button" id="open-login">Iniciar Sesión</a>`;
+                        
+                        // Re-adjuntar el listener para el botón de login
+                        document.getElementById("open-login").addEventListener("click", (e) => {
+                            if (!emailVerification.isLoggedIn) {
+                                modals.showModal(e, 'login');
+                            }
+                        });
+
+                        // Ocultar el panel de administración al cerrar sesión
+                        document.getElementById("admin-panel").style.display = "none";
+                        
+                        console.log('Sesión cerrada correctamente.');
+                    } else {
+                        console.error('Error al cerrar sesión:', data.error);
+                    }
+                } catch (error) {
+                    console.error('Error de conexión al cerrar sesión:', error);
+                }
             },
 
             validateSignup: function() {
@@ -387,6 +1563,7 @@
                 document.getElementById("nombre-error").textContent = '';
                 document.getElementById("email-error").textContent = '';
                 document.getElementById("password-error").textContent = '';
+                document.getElementById("captcha-error").textContent = '';
                 document.getElementById("signup-message").textContent = '';
                 
                 // Validar nombre
@@ -418,7 +1595,16 @@
             
             resendCode: function(e) {
                 e.preventDefault();
-                document.getElementById("signup-form").dispatchEvent(new Event('submit'));
+                // Generar nuevo CAPTCHA antes de reenviar
+                captchaSimulator.generateCaptcha();
+                // Mostrar el formulario de registro para obtener un nuevo CAPTCHA
+                document.getElementById("verification-form").style.display = 'none';
+                document.getElementById("signup-form").style.display = 'block';
+                this.showMessage(
+                    document.getElementById("signup-message"),
+                    "Por favor, completa el formulario nuevamente para reenviar el código",
+                    "blue"
+                );
             },
             
             startCountdown: function() {
@@ -437,34 +1623,239 @@
             showMessage: function(element, text, color) {
                 element.textContent = text;
                 element.style.color = color;
-                setTimeout(() => element.textContent = '', 3000);
+                setTimeout(() => element.textContent = '', 5000);
             }
         };
 
         // Login
-        document.getElementById("login-form").addEventListener("submit", function(e) {
+        document.getElementById("login-form").addEventListener("submit", async function(e) {
             e.preventDefault();
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             const message = document.getElementById("verification-message");
+            const loginButton = e.target.querySelector('button[type="submit"]');
+            const originalText = loginButton.innerHTML;
             
-            if (email.includes('@') && password.length >= 6) {
-                emailVerification.isLoggedIn = true;
-                emailVerification.userEmail = email;
-                emailVerification.userNombre = email.split('@')[0];
-                emailVerification.showUserProfile();
-                message.textContent = 'Inicio de sesión exitoso!';
-                message.style.color = 'green';
-                setTimeout(() => modals.closeModals(), 2000);
-            } else {
-                message.textContent = 'Credenciales inválidas';
+            loginButton.innerHTML = '<span class="spinner"></span> Iniciando...';
+            loginButton.disabled = true;
+            
+            try {
+                const response = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password }),
+                    credentials: 'include'
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    emailVerification.isLoggedIn = true;
+                    emailVerification.userEmail = data.user.email;
+                    emailVerification.userNombre = data.user.nombre;
+                    emailVerification.userId = data.user.id; // Guarda el ID del usuario al iniciar sesión
+                    emailVerification.showUserProfile();
+                    message.textContent = '¡Inicio de sesión exitoso!';
+                    message.style.color = 'green';
+
+                    // Mostrar el panel de administración si es admin
+                    if (emailVerification.userEmail === "admin@handinhand.com") {
+                        document.getElementById("admin-panel").style.display = "block";
+                        loadProducers(); // Cargar productores en el panel de admin
+                    } else {
+                        document.getElementById("admin-panel").style.display = "none";
+                    }
+
+                    setTimeout(() => modals.closeModals(), 1500);
+                } else {
+                    message.textContent = data.error || 'Credenciales inválidas';
+                    message.style.color = 'red';
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                message.textContent = 'Error de conexión con el servidor';
                 message.style.color = 'red';
+            } finally {
+                loginButton.innerHTML = originalText;
+                loginButton.disabled = false;
             }
         });
 
+        // Funciones del panel de administración (estáticas por ahora)
+        function loadProducers() {
+            const producers = [
+                { nombre: "Granja Orgánica Valle Verde", email: "valleverde@correo.com", region: "Valle Central", estado: "Activo" },
+                { nombre: "Viñedos Don Carlos", email: "doncarlos@correo.com", region: "Zona Norte", estado: "Pendiente" },
+                { nombre: "Mieles La Abejita", email: "abejita@correo.com", region: "Montañas", estado: "Activo" }
+            ];
+
+            const tbody = document.getElementById("producer-list");
+            tbody.innerHTML = "";
+
+            producers.forEach((prod, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                <td>${prod.nombre}</td>
+                <td>${prod.email}</td>
+                <td>${prod.region}</td>
+                <td id="estado-${index}">${prod.estado}</td>
+                <td>
+                    <button class="action-button" onclick="cambiarEstado(${index}, 'Activo')">Aprobar</button>
+                    <button class="action-button" onclick="cambiarEstado(${index}, 'Suspendido')">Suspender</button>
+                </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function cambiarEstado(index, nuevoEstado) {
+            const estadoCell = document.getElementById(`estado-${index}`);
+            estadoCell.textContent = nuevoEstado;
+            // Aquí podrías agregar una llamada a la API para actualizar el estado en la base de datos
+            alert(`Productor ${index} cambiado a estado: ${nuevoEstado}`);
+        }
+
+        // Funcionalidad de agregar producto
+        document.getElementById("add-product-form").addEventListener("submit", async function(e) {
+            e.preventDefault();
+            const productName = document.getElementById("product-name").value;
+            const productDescription = document.getElementById("product-description").value;
+            const productPrice = parseFloat(document.getElementById("product-price").value);
+            const productImage = document.getElementById("product-image").value;
+            const addProductMessage = document.getElementById("add-product-message");
+            const submitButton = e.target.querySelector('button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            
+            addProductMessage.textContent = ''; // Limpiar mensajes anteriores
+
+            // Validación básica
+            if (!productName || !productDescription || isNaN(productPrice) || productPrice <= 0 || !productImage) {
+                addProductMessage.textContent = 'Por favor, completa todos los campos y asegúrate de que el precio sea válido.';
+                addProductMessage.style.color = 'red';
+                return;
+            }
+
+            // Validación de URL de imagen
+            try {
+                new URL(productImage);
+            } catch (error) {
+                addProductMessage.textContent = 'La URL de la imagen no es válida.';
+                addProductMessage.style.color = 'red';
+                return;
+            }
+
+
+            submitButton.innerHTML = '<span class="spinner"></span> Guardando...';
+            submitButton.disabled = true;
+
+            try {
+                const response = await fetch('http://localhost:3000/productos', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        nombre: productName,
+                        descripcion: productDescription,
+                        precio: productPrice,
+                        imagen_url: productImage,
+                        id_productor: emailVerification.userId // Asume que el usuario logueado es el productor
+                    }),
+                    credentials: 'include' // Para enviar la cookie de sesión
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    addProductMessage.textContent = 'Producto agregado exitosamente!';
+                    addProductMessage.style.color = 'green';
+                    document.getElementById("add-product-form").reset(); // Limpiar formulario
+                    loadProductsCarousel(); // Recargar los productos en el carrusel
+                    setTimeout(() => modals.closeModals(), 1500); // Cerrar modal después de un tiempo
+                } else {
+                    addProductMessage.textContent = data.error || 'Error al agregar el producto.';
+                    addProductMessage.style.color = 'red';
+                }
+            } catch (error) {
+                console.error("Error al agregar producto:", error);
+                addProductMessage.textContent = 'Error de conexión con el servidor al agregar producto.';
+                addProductMessage.style.color = 'red';
+            } finally {
+                submitButton.innerHTML = originalText;
+                submitButton.disabled = false;
+            }
+        });
+
+        // Cargar productos en el carrusel
+        async function loadProductsCarousel() {
+            const productCarousel = $('.product-carousel');
+            
+            // Destruir Slick antes de reinicializar para evitar duplicados y errores
+            if (productCarousel.hasClass('slick-initialized')) {
+                productCarousel.slick('unslick');
+            }
+            productCarousel.empty(); // Limpiar el contenido actual
+
+            try {
+                const response = await fetch('http://localhost:3000/productos');
+                const data = await response.json();
+
+                if (data.success && data.productos.length > 0) {
+                    data.productos.forEach(product => {
+                        const productSlide = `
+                            <div class="product-slide">
+                                <img src="${product.imagen_url}" alt="${product.nombre}">
+                                <h3>${product.nombre}</h3>
+                                <p>${product.descripcion}</p>
+                                <p class="price">$${product.precio.toFixed(2)}</p>
+                                <button class="add-to-cart-btn">Añadir al carrito</button>
+                            </div>
+                        `;
+                        productCarousel.append(productSlide);
+                    });
+
+                    // Inicializar Slick Carousel
+                    productCarousel.slick({
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        autoplay: true,
+                        autoplaySpeed: 3000,
+                        dots: true,
+                        arrows: true,
+                        responsive: [
+                            {
+                                breakpoint: 1024,
+                                settings: {
+                                    slidesToShow: 2,
+                                    slidesToScroll: 1,
+                                    infinite: true,
+                                    dots: true
+                                }
+                            },
+                            {
+                                breakpoint: 600,
+                                settings: {
+                                    slidesToShow: 1,
+                                    slidesToScroll: 1
+                                }
+                            }
+                        ]
+                    });
+                } else {
+                    productCarousel.append('<p style="text-align: center; margin-top: 20px;">No hay productos disponibles aún.</p>');
+                }
+            } catch (error) {
+                console.error("Error al cargar productos para el carrusel:", error);
+                productCarousel.append('<p style="text-align: center; color: red; margin-top: 20px;">Error al cargar los productos.</p>');
+            }
+        }
+
+
         // Inicialización
-        modals.init();
-        emailVerification.init();
+        $(document).ready(function() {
+            captchaSimulator.init();
+            modals.init();
+            emailVerification.init();
+            loadProductsCarousel(); // Cargar productos al iniciar la página
+        });
     </script>
 </body>
 </html>
